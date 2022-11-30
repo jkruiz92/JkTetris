@@ -20,6 +20,7 @@ class tetris():
         turtle.write("Close", move=False, font=("Verdana", 20, "normal"),  align="left")
         self.menu.listen()
         self.menu.onkey(self.playing, "Up")
+        self.menu.onkey(self.close, "Down")
         self.menu.mainloop()
 
     def playing(self):
@@ -28,6 +29,9 @@ class tetris():
         play_screen = turtle.Screen()
         play_screen.setup(350, 500)
         play_screen.bgcolor("light green")
+
+    def close(self):
+        self.menu.bye()
 
 
 if __name__ == "__main__":
