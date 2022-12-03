@@ -1,6 +1,7 @@
 import os
 import turtle
 import time
+import threading
 
 class tetris():
     def __init__(self):
@@ -29,10 +30,17 @@ class tetris():
         self.menu.setup(350, 500)
         self.menu.title("JkTetrisGame     @jkruiz")
         self.menu.bgcolor("light green")
-        turtle.st()
+        turtle.color("light green")
+        turtle.setposition(-150, 200)
+        turtle.color("black")
         turtle.speed(2)
+        turtle.st()
+
         self.menu.listen()
-        
+
+        self.thread_turtle_down = threading.Thread(target=self.continuous_down)
+        self.thread_turtle_down.start()
+
         self.menu.onkey(self.up, "Up")
         self.menu.onkey(self.down, "Down")
         self.menu.onkey(self.left, "Left")
@@ -40,10 +48,12 @@ class tetris():
         self.menu.onkey(self.close, "space")
                 
         self.menu.mainloop()
+
         
 
     def close(self):
         print("Closing...")
+
         self.menu.bye()
         
 
@@ -66,7 +76,14 @@ class tetris():
         turtle.setheading(0)
         turtle.forward(100)
 
-    
+    def continuous_down(self):
+        while True:
+            self.cont_down=True
+            turtle.setheading(-90)
+            y = turtle.position()[1]
+            turtle.sety(y - 10)
+            time.sleep(1)
+
 
 
 if __name__ == "__main__":
